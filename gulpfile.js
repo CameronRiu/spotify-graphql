@@ -2,7 +2,7 @@ const gulp = require('gulp');
 const ts = require('gulp-typescript');
 const jasmine = require('gulp-jasmine');
 const clean = require('gulp-clean');
-const runSequence = require('run-sequence');
+const runSequence = require('gulp4-run-sequence');
 
 gulp.task('build', function() {
     const merge = require('merge2');
@@ -12,13 +12,13 @@ gulp.task('build', function() {
         .pipe(tsProject());
 
     return merge([
-        tsResult.dts.pipe(gulp.dest('./definitions')),
+        tsResult.dts.pipe(gulp.dest('./dist')),
         tsResult.js.pipe(gulp.dest(tsProject.config.compilerOptions.outDir))
     ]);
 });
 
 gulp.task('clean', function () {
-    return gulp.src('dist', { read: false })
+    return gulp.src('dist', { read: false, allowEmpty: true })
         .pipe(clean());
 });
 
@@ -32,14 +32,15 @@ gulp.task('test:copy_fixtures', () => {
                .pipe(gulp.dest('./dist/spec/fixtures/'));
 });
 
-gulp.task('watch', ['default'], function() {
+gulp.task('default', gulp.series( function(cb) {
+  runSequence('clean', 'build', cb);
+}));
+
+gulp.task('watch', gulp.series('default', function() {
     gulp.watch('lib/*.ts', ['default']);
     gulp.watch('examples/*.ts', ['default']);
-});
+}));
 
-gulp.task('test', [], function(cb) {
+gulp.task('test', gulp.series( function(cb) {
   runSequence('clean', 'build', 'test:copy_fixtures', 'test:run', cb);
-});
-gulp.task('default', [], function(cb) {
-    runSequence('clean', 'build', cb);
-});
+}));
