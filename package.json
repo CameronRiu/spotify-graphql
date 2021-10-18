@@ -1,6 +1,6 @@
 {
   "name": "@cameronriu/spotify-graphql",
-  "version": "0.0.6",
+  "version": "0.1.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/CameronRiu/spotify-graphql"
@@ -43,7 +43,7 @@
     "lodash": "^4.17.21",
     "lru_map": "^0.4.1",
     "request": "^2.81.0",
-    "@cameronriu/spotify-web-api-node": "^0.0.1",
+    "spotify-web-api-node": "^5.0.2",
     "when": "^3.7.7"
   }
 }
