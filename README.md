@@ -1,3 +1,6 @@
+## This is an extension of charlypoly's spotify-graphql with updated dependencies and definitions for TypeScript.
+## Original README below
+
 # Spotify GraphQL [![npm version](https://badge.fury.io/js/spotify-graphql.svg)](https://badge.fury.io/js/spotify-graphql) [![https://david-dm.org/wittydeveloper/spotify-graphql](https://david-dm.org/wittydeveloper/spotify-graphql.svg)](https://david-dm.org/wittydeveloper/spotify-graphql) [![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
 GraphQL schema for Spotify Web API — TypeScript / Node.js (v6)
 

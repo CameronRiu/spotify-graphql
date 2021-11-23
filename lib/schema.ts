@@ -20,7 +20,7 @@ type Track {
 
 type Artist {
   id: String
-  genres: [String]
+  genres: [Genre]
   href: String
   name: String
   popularity: Int
@@ -30,6 +30,10 @@ type Artist {
   top_tracks(country: String): [Track]
   albums(album_type: String, throttle: Int, continueOnError: Int, limit: Int): [Album]
   related_artists(throttle: Int, continueOnError: Int, limit: Int): [Artist]
+}
+
+type Genre {
+  genre: String
 }
 
 type SimplifiedArtist {
@@ -45,7 +49,7 @@ type Album {
   album_type: String
   artists: [Artist]
   available_markets: [String]
-  genres: [String]
+  genres: [Genre]
   href: String
   label: String
   name: String
