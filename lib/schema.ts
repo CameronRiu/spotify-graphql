@@ -5,6 +5,7 @@ type Track {
   artists(full: Int, throttle: Int): [Artist]
   available_markets: [String]
   audio_features: AudioFeatures
+  audio_analysis: AudioAnalysis
   disc_number: Int
   duration_ms: Int
   explicit: Boolean
@@ -151,6 +152,100 @@ type AudioFeatures {
   valence: String
 }
 
+type AudioAnalysis {
+  meta: Meta
+  track: AudioAnalysisTrack
+  bars: [Bar]
+  beats: [Beat]
+  sections: [Section]
+  segments: [Segment]
+  tatums: [Tatum]
+}
+
+type Meta {
+  analyzer_version: String
+  platform: String
+  detailed_status: String
+  status_code: Int
+  timestamp: Int
+  analysis_time: Float
+  input_process: String
+}
+
+type AudioAnalysisTrack {
+  num_samples: Int
+  duration: Float
+  sample_md5: String
+  offset_seconds: Int
+  window_seconds: Int
+  analysis_sample_rate: Int
+  analysis_channels: Int
+  end_of_fade_in: Int
+  start_of_fade_out: Float
+  loudness: Float
+  tempo: Float
+  tempo_confidence: Float
+  time_signature: Int
+  time_signature_confidence: Float
+  key: Int
+  key_confidence: Float
+  mode: Int
+  mode_confidence: Float
+  codestring: String
+  code_version: Float
+  echoprintstring: String
+  echoprint_version: Float
+  synchstring: String
+  synch_version: Int
+  rhythmstring: String
+  rhythm_version: Int
+}
+
+type Bar {
+  start: Float
+  duration: Float
+  confidence: Float
+}
+
+type Beat {
+  start: Float
+  duration: Float
+  confidence: Float
+}
+
+type Section {
+  start: Float,
+  duration: Float
+  confidence: Float
+  loudness: Float
+  tempo: Float
+  tempo_confidence: Float
+  key: Int
+  key_confidence: Float
+  mode: Int
+  mode_confidence: Float
+  time_signature: Int
+  time_signature_confidence: Float
+}
+
+type Segment {
+  start: Float
+  duration: Float
+  confidence: Float
+  loudness_start: Float
+  loudness_max: Float
+  loudness_max_time: Float
+  loudness_end: Float
+  pitches: [Float]
+  timbre: [Float]
+}
+
+type Tatum {
+  start: Float
+  duration: Float
+  confidence: Float
+}
+
 type Image {
   height: Int
   url: String
@@ -191,6 +286,7 @@ type Query {
   tracks(ids: String!): [Track]
   audio_features(trackIds: String!): [AudioFeatures]
   audio_feature(trackId: String!): AudioFeatures
+  audio_analysis(trackId: String!): AudioAnalysis
   artist(id: String, name: String): Artist
   artists(ids: String!): [Artist]
   album(id: String!): Album

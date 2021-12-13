@@ -7,34 +7,34 @@ export function trackResolvers(spotifyApiClient) {
     artists(track: any, variables: any) {
       if (!!variables.full) {
         return syncedPoll('Track.artists', () => {
-            // This part is hacky.
-            //  Since Spotify Web API do not provide album
-            //  /track/:id/artists, we need to call
-            //  /artists?ids=... by chunk of 50 ids.
-            return new Promise((resolve, reject) => {
-              let queries: any = _(track.artists).
-                map('id').
-                compact().
-                chunk(50).
-                map((idsToQuery: any[]) => {
-                  return (): Promise<any> => {
-                    return safeApiCall(
-                      spotifyApiClient,
-                      'getArtists',
-                      (response) => response.body.artists,
-                      idsToQuery
-                    );
-                  };
-                });
-              sequence(Array.from(queries)).then(
-                (results) => {
-                  resolve(_(results).flatten());
-                },
-                (e) => {
-                  reject(e);
-                }
-              );
-            });
+          // This part is hacky.
+          //  Since Spotify Web API do not provide album
+          //  /track/:id/artists, we need to call
+          //  /artists?ids=... by chunk of 50 ids.
+          return new Promise((resolve, reject) => {
+            let queries: any = _(track.artists).
+              map('id').
+              compact().
+              chunk(50).
+              map((idsToQuery: any[]) => {
+                return (): Promise<any> => {
+                  return safeApiCall(
+                    spotifyApiClient,
+                    'getArtists',
+                    (response) => response.body.artists,
+                    idsToQuery
+                  );
+                };
+              });
+            sequence(Array.from(queries)).then(
+              (results) => {
+                resolve(_(results).flatten());
+              },
+              (e) => {
+                reject(e);
+              }
+            );
+          });
         }, variables.throttle || 5);
       } else {
         return track.artists;
@@ -44,14 +44,14 @@ export function trackResolvers(spotifyApiClient) {
     //   so we use `limitConcurency()` helper to avoid
     //   massive API calls at once
     album(track, variables) {
-      if(!!variables.full) {
+      if (!!variables.full) {
         return syncedPoll('Track.album', () => {
           return safeApiCall(
             spotifyApiClient,
             'getAlbum',
             null,
             track.album.id
-          ).then( (album) => {
+          ).then((album) => {
             return album;
           });
         }, variables.throttle || 5);
@@ -64,6 +64,15 @@ export function trackResolvers(spotifyApiClient) {
       return safeApiCall(
         spotifyApiClient,
         'getAudioFeaturesForTrack',
+        null,
+        track.id
+      );
+    },
+
+    audio_analysis(track) {
+      return safeApiCall(
+        spotifyApiClient,
+        'getAudioAnalysisForTrack',
         null,
         track.id
       );

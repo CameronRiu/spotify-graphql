@@ -83,6 +83,14 @@ export function queries(spotifyApiClient) {
         args.trackId
       );
     },
+    audio_analysis(root, args, context, info) {
+      return safeApiCall(
+        spotifyApiClient,
+        'getAudioAnalysisForTrack',
+        null,
+        args.trackId
+      );
+    },
     // Artist queries
     artist(root, args, context, info) {
       if (args.name) {

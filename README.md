@@ -1,14 +1,10 @@
-## This is an extension of charlypoly's spotify-graphql with updated dependencies and definitions for TypeScript.
-## Original README below
-
-# Spotify GraphQL [![npm version](https://badge.fury.io/js/spotify-graphql.svg)](https://badge.fury.io/js/spotify-graphql) [![https://david-dm.org/wittydeveloper/spotify-graphql](https://david-dm.org/wittydeveloper/spotify-graphql.svg)](https://david-dm.org/wittydeveloper/spotify-graphql) [![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
-GraphQL schema for Spotify Web API — TypeScript / Node.js (v6)
+# Spotify GraphQL TypeScript
+### GraphQL schema for Spotify Web API 
+(Extenstion of spotify-graphql with added functionality and updated TypeScript definitions)
 
 --------
-**[Try with the interactive console !](https://spotify-api-graphql-console.herokuapp.com/)**
 
 See [spotify-graphql-examples](https://github.com/wittydeveloper/spotify-graphql-examples) for more examples
-
 
 -------
 
@@ -69,7 +65,7 @@ SpotifyGraphQLClient(config).query(`
 - Get Several Tracks :white_check_mark:
 - Get Audio Features for a Track :white_check_mark:
 - Get Audio Features for Several Tracks :white_check_mark:
-- Get Audio Analysis for a Track :x:
+- Get Audio Analysis for a Track :white_check_mark:
 ### Search
 - Search for an Item :white_check_mark:
 ### Playlists
